@@ -53,5 +53,5 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=registry,ref=n1try/wakapi:buildcache-alpine
-          cache-to: type=registry,ref=n1try/wakapi:buildcache-alpine,mode=max
+          cache-from: type=registry,ref=benedikt-wueller/wakapi:buildcache-alpine
+          cache-to: type=registry,ref=benedikt-wueller/wakapi:buildcache-alpine,mode=max
