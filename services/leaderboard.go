@@ -53,7 +53,7 @@ func NewLeaderboardService(leaderboardRepo repositories.ILeaderboardRepository, 
 
 			if user.PublicLeaderboard && !exists {
 				logbuch.Info("generating leaderboard for '%s' after settings update", user.ID)
-				srv.ComputeLeaderboard([]*models.User{user}, models.IntervalPast7Days, []uint8{models.SummaryLanguage})
+				srv.ComputeLeaderboard([]*models.User{user}, models.IntervalPast12Months, []uint8{models.SummaryLanguage})
 			} else if !user.PublicLeaderboard && exists {
 				logbuch.Info("clearing leaderboard for '%s' after settings update", user.ID)
 				if err := srv.repository.DeleteByUser(user.ID); err != nil {
@@ -76,7 +76,7 @@ func (srv *LeaderboardService) Schedule() {
 			config.Log().Error("failed to get users for leaderboard generation - %v", err)
 			return
 		}
-		srv.ComputeLeaderboard(users, models.IntervalPast7Days, []uint8{models.SummaryLanguage})
+		srv.ComputeLeaderboard(users, models.IntervalPast12Months, []uint8{models.SummaryLanguage})
 	}
 
 	for _, cronExp := range srv.config.App.GetLeaderboardGenerationTimeCron() {
